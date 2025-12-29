@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import VehicleService from "./vehicles.service";
 
-
 interface AuthRequest extends Request {
   user?: {
     userId: number;
@@ -10,9 +9,6 @@ interface AuthRequest extends Request {
 }
 
 class VehicleController {
-  // ==============================
-  // CREATE VEHICLE (ADMIN)
-  // ==============================
   static async createVehicle(req: AuthRequest, res: Response) {
     if (req.user?.role !== "admin") {
       return res.status(403).json({
@@ -35,9 +31,6 @@ class VehicleController {
     }
   }
 
-  // ==============================
-  // GET ALL VEHICLES (PUBLIC)
-  // ==============================
   static async getAllVehicles(req: Request, res: Response) {
     try {
       const vehicles = await VehicleService.getAllVehicles();
@@ -53,9 +46,6 @@ class VehicleController {
     }
   }
 
-  // ==============================
-  // GET VEHICLE BY ID (PUBLIC)
-  // ==============================
   static async getVehicle(req: Request, res: Response) {
     try {
       const vehicle = await VehicleService.getVehicleById(
@@ -81,9 +71,6 @@ class VehicleController {
     }
   }
 
-  // ==============================
-  // UPDATE VEHICLE (ADMIN)
-  // ==============================
   static async updateVehicle(req: AuthRequest, res: Response) {
     if (req.user?.role !== "admin") {
       return res.status(403).json({
@@ -117,9 +104,6 @@ class VehicleController {
     }
   }
 
-  // ==============================
-  // DELETE VEHICLE (ADMIN)
-  // ==============================
   static async deleteVehicle(req: AuthRequest, res: Response) {
     if (req.user?.role !== "admin") {
       return res.status(403).json({

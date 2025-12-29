@@ -8,9 +8,6 @@ interface CreateBookingPayload {
 }
 
 class BookingService {
-  // ==============================
-  // CREATE BOOKING
-  // ==============================
   static async createBooking(payload: CreateBookingPayload) {
     const client = await pool.connect();
 
@@ -51,7 +48,6 @@ class BookingService {
         ]
       );
 
-      // Update vehicle status
       await client.query(
         `UPDATE vehicles SET status = 'rented' WHERE id = $1`,
         [payload.vehicle_id]
@@ -67,9 +63,6 @@ class BookingService {
     }
   }
 
-  // ==============================
-  // APPROVE BOOKING (pending → confirmed)
-  // ==============================
   static async approveBooking(bookingId: number) {
     const bookingResult = await pool.query(
       `SELECT * FROM bookings WHERE id = $1`,
@@ -87,9 +80,6 @@ class BookingService {
     return result.rows[0];
   }
 
-  // ==============================
-  // GET ALL BOOKINGS (ADMIN)
-  // ==============================
   static async getAllBookings() {
     const result = await pool.query(
       `SELECT 
@@ -106,9 +96,6 @@ class BookingService {
     return result.rows;
   }
 
-  // ==============================
-  // GET BOOKINGS BY USER
-  // ==============================
   static async getBookingsByUser(userId: number) {
     const result = await pool.query(
       `SELECT * FROM bookings WHERE user_id = $1 ORDER BY created_at DESC`,
@@ -117,9 +104,6 @@ class BookingService {
     return result.rows;
   }
 
-  // ==============================
-  // CANCEL BOOKING
-  // ==============================
   static async cancelBooking(bookingId: number, userId: number) {
     const bookingResult = await pool.query(
       `SELECT * FROM bookings WHERE id = $1`,
@@ -140,9 +124,6 @@ class BookingService {
     return { message: "Booking cancelled successfully" };
   }
 
-  // ==============================
-  // COMPLETE / RETURN BOOKING
-  // ==============================
   static async completeBooking(bookingId: number) {
     const bookingResult = await pool.query(
       `SELECT * FROM bookings WHERE id = $1`,

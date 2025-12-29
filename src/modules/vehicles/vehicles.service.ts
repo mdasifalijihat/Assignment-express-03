@@ -9,9 +9,6 @@ export interface VehiclePayload {
 }
 
 class VehicleService {
-  // ==============================
-  // CREATE VEHICLE (ADMIN)
-  // ==============================
   static async createVehicle(payload: VehiclePayload) {
     const {
       name,
@@ -34,9 +31,6 @@ class VehicleService {
     return result.rows[0];
   }
 
-  // ==============================
-  // GET ALL VEHICLES
-  // ==============================
   static async getAllVehicles() {
     const result = await pool.query(
       `SELECT * FROM vehicles ORDER BY created_at DESC`
@@ -44,9 +38,6 @@ class VehicleService {
     return result.rows;
   }
 
-  // ==============================
-  // GET VEHICLE BY ID
-  // ==============================
   static async getVehicleById(vehicleId: number) {
     const result = await pool.query(`SELECT * FROM vehicles WHERE id = $1`, [
       vehicleId,
@@ -54,9 +45,6 @@ class VehicleService {
     return result.rows[0];
   }
 
-  // ==============================
-  // UPDATE VEHICLE (ADMIN)
-  // ==============================
   static async updateVehicle(
     vehicleId: number,
     payload: Partial<VehiclePayload>
@@ -96,9 +84,6 @@ class VehicleService {
     return result.rows[0];
   }
 
-  // ==============================
-  // DELETE VEHICLE (ADMIN)
-  // ==============================
   static async deleteVehicle(vehicleId: number) {
     const bookingCheck = await pool.query(
       `

@@ -51,7 +51,7 @@ const initDB = async (): Promise<void> => {
     console.log("✅ Database initialized successfully");
   } catch (error) {
     console.error("❌ Database init failed", error);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
